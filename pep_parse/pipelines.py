@@ -25,5 +25,5 @@ class PepParsePipeline:
                 encoding='utf-8') as f:
             f.write('Статус,Количество\n')
             for status, count in self.status_counter.items():
-                print(f'{status}, {count}', file = f)
+                print(f'{status}, {count}', file=f)
             f.write(f'Total,{total}\n')
