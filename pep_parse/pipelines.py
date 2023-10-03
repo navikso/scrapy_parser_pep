@@ -12,12 +12,12 @@ class PepParsePipeline:
         self.status_counter = defaultdict(int)
 
     def open_spider(self, spider):
-        # Если этот метод удалить, Pytest выдает:
-        # "В классе `PepParsePipeline` должен быть метод `open_spider`."
         pass
 
     def process_item(self, item, spider):
-        if not item["status"] in self.status_counter:
+        if "status" not in item:
+            raise DropItem("'Status' is not in item")
+        if item["status"] not in self.status_counter:
             raise DropItem("'Status' is not found")
         self.status_counter[item["status"]] += 1
         return item
@@ -27,6 +27,7 @@ class PepParsePipeline:
         datetime.now()
 
         with open(
+            # black здесь применен, он оставил эту строку как есть:
             f"{BASE_DIR}/results/status_summary_{datetime.now()}.csv",
             mode="w",
             encoding="utf-8",
