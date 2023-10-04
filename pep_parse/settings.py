@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 BOT_NAME = "pep_parse"
 BASE_DIR = Path(__file__).parent.parent
 

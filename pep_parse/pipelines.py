@@ -1,8 +1,9 @@
 from collections import defaultdict
 from datetime import datetime
-from .settings import BASE_DIR
+
 from scrapy.exceptions import DropItem
 
+from .settings import BASE_DIR
 
 TABLE_COLUMNS = "Статус,Количество\n"
 
@@ -15,9 +16,7 @@ class PepParsePipeline:
         pass
 
     def process_item(self, item, spider):
-        if "status" not in item:
-            raise DropItem("'Status' is not in item")
-        if item["status"] not in self.status_counter:
+        if "status" not in item and item["status"] not in self.status_counter:
             raise DropItem("'Status' is not found")
         self.status_counter[item["status"]] += 1
         return item
@@ -28,6 +27,9 @@ class PepParsePipeline:
 
         with open(
             # black здесь применен, он оставил эту строку как есть:
+            # "здесь" - имела в виду, что black применен ко всему проекту,
+            # поэтому мне не совсем понятно какие есть замечания по стандарту.
+            # isort тоже применен ко всему проекту.
             f"{BASE_DIR}/results/status_summary_{datetime.now()}.csv",
             mode="w",
             encoding="utf-8",
