@@ -26,10 +26,6 @@ class PepParsePipeline:
         datetime.now()
 
         with open(
-            # black здесь применен, он оставил эту строку как есть:
-            # "здесь" - имела в виду, что black применен ко всему проекту,
-            # поэтому мне не совсем понятно какие есть замечания по стандарту.
-            # isort тоже применен ко всему проекту.
             f"{BASE_DIR}/results/status_summary_{datetime.now()}.csv",
             mode="w",
             encoding="utf-8",
